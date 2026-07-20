@@ -1289,10 +1289,10 @@ export default function App({ user, onLogout, onLogin }) {
                 SHADOW_BTN={SHADOW_BTN}
               />
               <div className="bottom-btn-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                <button onClick={exportPDF} title="Download as PDF presentation (10 pages)" className="topbar-export-btn" style={{ padding: "14px", background: "#C0392B", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>↓ PDF</button>
-                <button onClick={exportPPTX} title="Download as PowerPoint presentation" className="topbar-export-btn" style={{ padding: "14px", background: "#2980B9", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>↓ PPTX</button>
-                <button onClick={shareLink} title="Generate a public link anyone can view" className="topbar-export-btn" style={{ padding: "14px", background: "#1a73e8", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>🔗 Share</button>
-                <button onClick={startNewChat} title="Start a new pitch deck" style={{ padding: "14px", background: G, color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif", boxShadow: SHADOW_BTN }}>New deck</button>
+                <button onClick={exportPDF} title="Download as PDF presentation (10 pages)" style={{ padding: "13px", background: "#C0392B", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>↓ PDF</button>
+                <button onClick={exportPPTX} title="Download as PowerPoint presentation" style={{ padding: "13px", background: "#2980B9", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>↓ PPTX</button>
+                <button onClick={shareLink} title="Generate a public link anyone can view" style={{ padding: "13px", background: "#1a73e8", color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif" }}>🔗 Share</button>
+                <button onClick={startNewChat} title="Start a new pitch deck" style={{ padding: "13px", background: G, color: "#fff", border: "none", borderRadius: "12px", fontSize: "13px", fontWeight: "700", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif", boxShadow: SHADOW_BTN }}>New deck</button>
               </div>
             </div>
           )}
@@ -1406,7 +1406,7 @@ export default function App({ user, onLogout, onLogin }) {
           /* Auth modal full width on mobile */
           .auth-modal-box { width: calc(100vw - 32px) !important; padding: 28px 20px !important; }
           /* Top bar buttons smaller on mobile */
-          .topbar-export-btn { padding: 6px 8px !important; font-size: 11px !important; }
+          .topbar-export-btn { padding: 8px 14px !important; font-size: 12px !important; }
           /* Cover card less padding on mobile */
           .cover-card { padding: 32px 16px !important; }
           /* Hero section less padding */
@@ -1422,7 +1422,7 @@ export default function App({ user, onLogout, onLogin }) {
         @media (max-width: 400px) {
           .chip-grid { grid-template-columns: 1fr 1fr !important; }
           .bottom-btn-grid { grid-template-columns: 1fr 1fr !important; }
-          .topbar-export-btn { padding: 5px 6px !important; font-size: 10px !important; }
+          .topbar-export-btn { padding: 8px 12px !important; font-size: 11px !important; }
         }
         @media (min-width: 769px) {
           .hamburger-btn { display: none !important; }

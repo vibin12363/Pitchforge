@@ -202,7 +202,7 @@ export default function InputFlow({
   const showEditPanel = phase === "generating" && !loading;
 
   return (
-    <div style={{ background: BG, borderRadius: "16px", boxShadow: SHADOW_OUT, overflow: "hidden" }}>
+    <div style={{ background: BG, borderRadius: "16px", boxShadow: SHADOW_OUT, overflow: "hidden", display: "flex", flexDirection: "column", minHeight: "440px" }}>
 
       {/* Theme selector — only before first message */}
       {phase === "idea" && messages.length === 0 && (
@@ -386,7 +386,7 @@ export default function InputFlow({
 
       {/* Input box */}
       {showInputBox && (
-        <div style={{ padding: "12px 16px 16px", borderTop: messages.length > 0 ? "1px solid #e8e8e8" : "none", display: "flex", alignItems: "flex-end", gap: "10px" }}>
+        <div style={{ padding: "12px 16px 16px", borderTop: messages.length > 0 ? "1px solid #e8e8e8" : "none", display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "auto" }}>
           <div style={{ flex: 1, borderRadius: "12px", boxShadow: SHADOW_IN, background: BG, padding: "10px 14px" }}>
             <textarea ref={inputRef} rows={1}
               style={{ width: "100%", border: "none", outline: "none", resize: "none", fontFamily: "'Poppins',system-ui,sans-serif", fontSize: "14px", color: "#2d3a1a", lineHeight: "1.6", background: "transparent", minHeight: "24px", maxHeight: "120px", overflowY: "auto", display: "block", boxSizing: "border-box" }}
