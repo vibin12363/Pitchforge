@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+groq
+python-dotenv
+motor
+databases[asyncpg]
+asyncpg
+sqlalchemy
+supabase
+pydantic
