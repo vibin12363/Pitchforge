@@ -393,3 +393,17 @@ async def generate_pitch_stream(request: IdeaRequest):
                 yield delta
 
     return StreamingResponse(stream(), media_type="text/plain")
+
+@app.on_event("startup")
+async def startup():
+    try:
+        await database.connect()
+    except Exception as e:
+        print(f"DB connection failed at startup: {e}")
+
+@app.on_event("shutdown")
+async def shutdown():
+    try:
+        await database.disconnect()
+    except Exception:
+        pass
