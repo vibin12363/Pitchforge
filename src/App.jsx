@@ -1353,13 +1353,8 @@ export default function App({ user, onLogout, onLogin }) {
               try {
                 const { signInWithPopup, GoogleAuthProvider } = await import("firebase/auth");
                 const { googleProvider } = await import("./firebase");
-                googleProvider.addScope('https://www.googleapis.com/auth/drive.file');
-                googleProvider.addScope('https://www.googleapis.com/auth/presentations');
                 const res = await signInWithPopup(auth, googleProvider);
                 // Get access token properly
-                const credential = GoogleAuthProvider.credentialFromResult(res);
-                const token = credential?.accessToken;
-                if (token) localStorage.setItem('gAccessToken', token);
                 onLogin(res.user);
                 setShowAuth(null);
               } catch (err) {

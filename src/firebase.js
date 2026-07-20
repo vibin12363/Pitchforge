@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBttVAurq3ybYPmXrbmdef8kBSY6lFYY18",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "business-chatbot-ba9c4.firebaseapp.com",
   projectId: "business-chatbot-ba9c4",
   storageBucket: "business-chatbot-ba9c4.firebasestorage.app",
