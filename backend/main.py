@@ -48,11 +48,18 @@ supabase_storage = create_client(
 
 @app.on_event("startup")
 async def startup():
-    await database.connect()
+    try:
+        await database.connect()
+        print("PostgreSQL connected")
+    except Exception as e:
+        print(f"PostgreSQL connection failed (non-fatal): {e}")
 
 @app.on_event("shutdown")
 async def shutdown():
-    await database.disconnect()
+    try:
+        await database.disconnect()
+    except Exception:
+        pass
 
 # ── Models ────────────────────────────────────────────────────────────────────
 
