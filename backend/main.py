@@ -22,7 +22,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://pitchforge-self.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -228,7 +228,7 @@ async def share_deck(request: SaveDeckRequest):
         "is_public": True,
     }
     await decks_collection.insert_one(deck)
-    return {"share_url": f"http://localhost:5173/deck/{share_id}"}
+    return {"share_url": f"https://pitchforge-self.vercel.app/deck/{share_id}"}
 
 @app.get("/decks/shared/{share_id}")
 async def get_shared_deck(share_id: str):
