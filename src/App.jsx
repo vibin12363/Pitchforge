@@ -1396,7 +1396,7 @@ export default function App({ user, onLogout, onLogin }) {
           aside.sidebar-open { left: 0 !important; box-shadow: 4px 0 20px rgba(0,0,0,0.2); }
           .sidebar-overlay { display: block !important; }
           .hamburger-btn { display: block !important; }
-          .inputflow-container { display: flex !important; flex-direction: column !important; min-height: 60vh !important; }
+          .inputflow-container { display: flex !important; flex-direction: column !important; min-height: 40vh !important; }
           .inputflow-inputbox { margin-top: auto !important; }
           .desktop-toggle { display: none !important; }
           .chip-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; }
