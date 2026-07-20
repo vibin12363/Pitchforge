@@ -71,7 +71,7 @@ export default function App({ user, onLogout, onLogin }) {
   useEffect(() => {
     if (user) {
       // Load history from MongoDB
-      axios.get(`http://127.0.0.1:8000/decks/${user.uid}`)
+      axios.get(`https://pitchforge-backend-wqez.onrender.com/decks/${user.uid}`)
         .then(res => {
           const decks = res.data.decks.map(d => ({
             id: d._id,
@@ -154,11 +154,11 @@ export default function App({ user, onLogout, onLogin }) {
         chat_answers: chatAnswers,
       };
       if (id) {
-        await axios.put(`http://127.0.0.1:8000/decks/update/${id}`, payload);
+        await axios.put(`https://pitchforge-backend-wqez.onrender.com/decks/update/${id}`, payload);
         setHistory(prev => prev.map(h => h.id === id ? { ...h, title: newResult.title, data: newResult, tone: newTone, deckType: newDeckType, chatMessages: chatMessages } : h));
         return id;
       } else {
-        const res = await axios.post("http://127.0.0.1:8000/decks/save", payload);
+        const res = await axios.post("https://pitchforge-backend-wqez.onrender.com/decks/save", payload);
         const newId = res.data.deck_id;
         const newEntry = { id: newId, title: newResult.title, data: newResult, idea: newIdea, tone: newTone, deckType: newDeckType, chatMessages: chatMessages };
         setHistory(prev => [newEntry, ...prev]);
@@ -173,7 +173,7 @@ export default function App({ user, onLogout, onLogin }) {
   const fetchMyExports = async () => {
     if (!user) return;
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/exports/${user.uid}`);
+      const res = await axios.get(`https://pitchforge-backend-wqez.onrender.com/exports/${user.uid}`);
       setMyExports(res.data.exports);
     } catch { setMyExports([]); }
   };
@@ -184,7 +184,7 @@ export default function App({ user, onLogout, onLogin }) {
     setShowUserPopup(p => !p);
     if (user && !userProfile) {
       try {
-        const res = await axios.get(`http://127.0.0.1:8000/user/profile/${user.uid}`);
+        const res = await axios.get(`https://pitchforge-backend-wqez.onrender.com/user/profile/${user.uid}`);
         setUserProfile(res.data);
       } catch { }
     }
@@ -195,7 +195,7 @@ export default function App({ user, onLogout, onLogin }) {
     setLoading(true); setError(""); setResult(null); setStep(0);
     const iv = setInterval(() => setStep(p => Math.min(p + 1, STEPS.length - 1)), 900);
     try {
-      const response = await fetch("http://127.0.0.1:8000/generate-stream", {
+      const response = await fetch("https://pitchforge-backend-wqez.onrender.com/generate-stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idea, tone, deck_type: deckType, answers }),
@@ -245,7 +245,7 @@ export default function App({ user, onLogout, onLogin }) {
         data = JSON.parse(text);
       } catch (parseErr) {
         console.warn("Stream parse failed, falling back to normal generate:", parseErr);
-        const res = await axios.post("http://127.0.0.1:8000/generate", { idea, tone, deck_type: deckType, answers });
+        const res = await axios.post("https://pitchforge-backend-wqez.onrender.com/generate", { idea, tone, deck_type: deckType, answers });
         data = res.data;
       }
       setResult(data);
@@ -254,7 +254,7 @@ export default function App({ user, onLogout, onLogin }) {
       clearInterval(iv);
       setLoading(false);
       try {
-        await axios.put(`http://127.0.0.1:8000/user/profile/increment/${user.uid}`);
+        await axios.put(`https://pitchforge-backend-wqez.onrender.com/user/profile/increment/${user.uid}`);
         setUserProfile(prev => prev ? { ...prev, decks_generated: (prev.decks_generated || 0) + 1 } : prev);
       } catch { }
       try {
@@ -275,7 +275,7 @@ export default function App({ user, onLogout, onLogin }) {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const base64Data = reader.result.split(",")[1];
-        await axios.post("http://127.0.0.1:8000/exports/upload", {
+        await axios.post("https://pitchforge-backend-wqez.onrender.com/exports/upload", {
           user_id: user.uid,
           deck_id: String(activeId),
           title: result.title,
@@ -344,7 +344,7 @@ export default function App({ user, onLogout, onLogin }) {
   const deleteChat = async (id) => {
     if (user) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/decks/${user.uid}/${id}`);
+        await axios.delete(`https://pitchforge-backend-wqez.onrender.com/decks/${user.uid}/${id}`);
       } catch (err) { console.error("Delete failed:", err); }
     }
     setHistory(prev => prev.filter(h => h.id !== id));
@@ -363,7 +363,7 @@ export default function App({ user, onLogout, onLogin }) {
     if (!newTitle) { setRenamingId(null); return; }
     if (user) {
       try {
-        await axios.put("http://127.0.0.1:8000/decks/rename", {
+        await axios.put("https://pitchforge-backend-wqez.onrender.com/decks/rename", {
           user_id: user.uid,
           deck_id: id,
           title: newTitle,
@@ -744,7 +744,7 @@ export default function App({ user, onLogout, onLogin }) {
     if (!user) { setShowAuth("login"); return; }
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/decks/share", {
+      const res = await axios.post("https://pitchforge-backend-wqez.onrender.com/decks/share", {
         user_id: user.uid,
         title: result.title,
         idea: idea,

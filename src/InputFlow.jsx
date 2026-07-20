@@ -76,7 +76,7 @@ export default function InputFlow({
       const loadId = `loading_${Date.now()}`;
       addMsg("Analyzing your idea and preparing questions…", "ai-loading", loadId);
       try {
-        const res = await axios.post("http://127.0.0.1:8000/questions", { idea: val });
+        const res = await axios.post("https://pitchforge-backend-wqez.onrender.com/questions", { idea: val });
         const qs = res.data.questions;
         setQuestions(qs);
         setMessages(prev => prev.filter(m => m.id !== loadId));

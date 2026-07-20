@@ -14,7 +14,7 @@ export default function AppWrapper() {
             setChecking(false);
             if (u) {
                 try {
-                    await axios.post("http://127.0.0.1:8000/user/profile", {
+                    await axios.post("https://pitchforge-backend-wqez.onrender.com/user/profile", {
                         firebase_uid: u.uid,
                         email: u.email,
                         display_name: u.displayName,

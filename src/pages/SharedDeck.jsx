@@ -9,7 +9,7 @@ export default function SharedDeck() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/decks/shared/${shareId}`)
+    axios.get(`https://pitchforge-backend-wqez.onrender.com/decks/shared/${shareId}`)
       .then(res => setDeck(res.data))
       .catch(() => setError("Deck not found or link expired."));
   }, [shareId]);
