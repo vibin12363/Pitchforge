@@ -202,7 +202,7 @@ export default function InputFlow({
   const showEditPanel = phase === "generating" && !loading;
 
   return (
-    <div style={{ background: BG, borderRadius: "16px", boxShadow: SHADOW_OUT, overflow: "hidden", display: "flex", flexDirection: "column", minHeight: "440px" }}>
+    <div style={{ background: BG, borderRadius: "16px", boxShadow: SHADOW_OUT, overflow: "hidden" }}>
 
       {/* Theme selector — only before first message */}
       {phase === "idea" && messages.length === 0 && (
@@ -360,7 +360,7 @@ export default function InputFlow({
         <div style={{ padding: "14px 20px", borderTop: "1px solid #e8e8e8" }}>
           <p style={{ fontSize: "12px", color: "#7a9a50", margin: "0 0 10px", fontWeight: "600" }}>Want to make changes?</p>
           <div className="edit-panel-btns" style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            <button onClick={handleEditIdea}  title="Start over with a new idea" 
+            <button onClick={handleEditIdea} title="Start over with a new idea"
               style={{ padding: "7px 14px", borderRadius: "10px", border: "none", background: BG, color: "#2d3a1a", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif", boxShadow: SHADOW_BTN }}>
               ✎ Edit idea
             </button>
@@ -386,7 +386,7 @@ export default function InputFlow({
 
       {/* Input box */}
       {showInputBox && (
-        <div style={{ padding: "12px 16px 16px", borderTop: messages.length > 0 ? "1px solid #e8e8e8" : "none", display: "flex", alignItems: "flex-end", gap: "10px", marginTop: "auto" }}>
+        <div style={{ padding: "12px 16px 16px", borderTop: messages.length > 0 ? "1px solid #e8e8e8" : "none", display: "flex", alignItems: "flex-end", gap: "10px" }}>
           <div style={{ flex: 1, borderRadius: "12px", boxShadow: SHADOW_IN, background: BG, padding: "10px 14px" }}>
             <textarea ref={inputRef} rows={1}
               style={{ width: "100%", border: "none", outline: "none", resize: "none", fontFamily: "'Poppins',system-ui,sans-serif", fontSize: "14px", color: "#2d3a1a", lineHeight: "1.6", background: "transparent", minHeight: "24px", maxHeight: "120px", overflowY: "auto", display: "block", boxSizing: "border-box" }}
