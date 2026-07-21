@@ -285,33 +285,37 @@ async def delete_deck(user_id: str, deck_id: str):
 
 @app.post("/user/profile")
 async def upsert_user_profile(request: UserProfileRequest):
-    query = "SELECT * FROM user_profiles WHERE firebase_uid = :uid"
-    existing = await database.fetch_one(query=query, values={"uid": request.firebase_uid})
+    try:
+        query = "SELECT * FROM user_profiles WHERE firebase_uid = :uid"
+        existing = await database.fetch_one(query=query, values={"uid": request.firebase_uid})
 
-    if existing:
-        query = """
-            UPDATE user_profiles
-            SET last_login = NOW(), display_name = :name, photo_url = :photo
-            WHERE firebase_uid = :uid
-        """
-        await database.execute(query=query, values={
-            "uid": request.firebase_uid,
-            "name": request.display_name,
-            "photo": request.photo_url
-        })
-        return {"message": "Profile updated", "is_new": False}
-    else:
-        query = """
-            INSERT INTO user_profiles (firebase_uid, email, display_name, photo_url)
-            VALUES (:uid, :email, :name, :photo)
-        """
-        await database.execute(query=query, values={
-            "uid": request.firebase_uid,
-            "email": request.email,
-            "name": request.display_name,
-            "photo": request.photo_url
-        })
-        return {"message": "Profile created", "is_new": True}
+        if existing:
+            query = """
+                UPDATE user_profiles
+                SET last_login = NOW(), display_name = :name, photo_url = :photo
+                WHERE firebase_uid = :uid
+            """
+            await database.execute(query=query, values={
+                "uid": request.firebase_uid,
+                "name": request.display_name,
+                "photo": request.photo_url
+            })
+            return {"message": "Profile updated", "is_new": False}
+        else:
+            query = """
+                INSERT INTO user_profiles (firebase_uid, email, display_name, photo_url)
+                VALUES (:uid, :email, :name, :photo)
+            """
+            await database.execute(query=query, values={
+                "uid": request.firebase_uid,
+                "email": request.email,
+                "name": request.display_name,
+                "photo": request.photo_url
+            })
+            return {"message": "Profile created", "is_new": True}
+    except Exception as e:
+        print(f"Profile upsert failed: {e}")
+        return {"message": "Profile sync unavailable", "is_new": False}
 
 @app.get("/user/profile/{firebase_uid}")
 async def get_user_profile(firebase_uid: str):
