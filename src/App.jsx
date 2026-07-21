@@ -1030,7 +1030,7 @@ export default function App({ user, onLogout, onLogin }) {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: BG, fontFamily: "'Poppins',system-ui,sans-serif", display: "flex" }}>
+    <div className={desktopSidebar ? "app-shell sidebar-expanded" : "app-shell"} style={{ minHeight: "100vh", background: BG, fontFamily: "'Poppins',system-ui,sans-serif", display: "flex" }}>
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
       {sidebarOpen && (
@@ -1192,7 +1192,7 @@ export default function App({ user, onLogout, onLogin }) {
         </nav>
 
         <div className="main-content" style={{ maxWidth: "760px", margin: "0 auto", padding: "48px 20px 80px" }}>
-          {!result && !loading && (
+          {!result && !loading && chatMessages.length === 0 && (
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: BG, borderRadius: "20px", padding: "6px 16px", marginBottom: "28px", fontSize: "12px", color: G, fontWeight: "600", boxShadow: SHADOW_OUT }}>
                 <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: G, display: "inline-block" }} />
@@ -1390,14 +1390,30 @@ export default function App({ user, onLogout, onLogin }) {
       )}
 
       <style>{`
+      .chat-input-bar {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 50;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  max-width: 736px;
+  margin: 0 auto;
+}
+@media (min-width: 769px) { 
+  .sidebar-expanded .chat-input-bar {
+    left: calc(12px + 260px);
+  }
+}
+.main-content { padding-bottom: 140px !important; }
         * { box-sizing: border-box; }
         @media (max-width: 768px) {
           aside { position: fixed !important; left: -260px; width: 260px !important; transition: left 0.25s ease; }
           aside.sidebar-open { left: 0 !important; box-shadow: 4px 0 20px rgba(0,0,0,0.2); }
           .sidebar-overlay { display: block !important; }
           .hamburger-btn { display: block !important; }
-          .inputflow-container { display: flex !important; flex-direction: column !important; min-height: 60vh !important; }
-          .inputflow-inputbox { margin-top: auto !important; }
+          .inputflow-inputbox { position: sticky; bottom: 8px; background: inherit; z-index: 5; }
           .desktop-toggle { display: none !important; }
           .chip-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; }
           .chip-grid button { width: 100% !important; }

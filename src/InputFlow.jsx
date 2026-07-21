@@ -202,23 +202,7 @@ export default function InputFlow({
   const showEditPanel = phase === "generating" && !loading;
 
   return (
-    <div className="inputflow-container" style={{ background: BG, borderRadius: "16px", boxShadow: SHADOW_OUT, overflow: "hidden" }}>
-
-      {/* Theme selector — only before first message */}
-      {phase === "idea" && messages.length === 0 && (
-        <div style={{ padding: "16px 20px 0" }}>
-          <p style={{ fontSize: "11px", color: G, fontWeight: "600", letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Design theme</p>
-          <div className="chip-grid" style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "12px" }}>
-            {THEMES.map(t => (
-              <button key={t.id} onClick={() => setTheme(t)}
-                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "6px 14px", borderRadius: "20px", border: "none", background: theme.id === t.id ? t.primary : BG, color: theme.id === t.id ? "#fff" : "#555", fontSize: "12px", fontWeight: "600", cursor: "pointer", fontFamily: "'Poppins',system-ui,sans-serif", boxShadow: theme.id === t.id ? "inset 2px 2px 5px rgba(0,0,0,0.2)" : SHADOW_BTN, transition: "all 0.2s" }}>
-                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: t.primary, display: "inline-block", border: "2px solid rgba(255,255,255,0.6)" }} />
-                {t.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+    <div>
 
       {/* Chat messages */}
       {messages.length > 0 && (
@@ -384,27 +368,36 @@ export default function InputFlow({
         </div>
       )}
 
-      {/* Input box */}
       {showInputBox && (
-        <div className="inputflow-inputbox" style={{ padding: "12px 16px 16px", borderTop: messages.length > 0 ? "1px solid #e8e8e8" : "none", display: "flex", alignItems: "flex-end", gap: "10px" }}>
-          <div style={{ flex: 1, borderRadius: "12px", boxShadow: SHADOW_IN, background: BG, padding: "10px 14px" }}>
-            <textarea ref={inputRef} rows={1}
-              style={{ width: "100%", border: "none", outline: "none", resize: "none", fontFamily: "'Poppins',system-ui,sans-serif", fontSize: "14px", color: "#2d3a1a", lineHeight: "1.6", background: "transparent", minHeight: "24px", maxHeight: "120px", overflowY: "auto", display: "block", boxSizing: "border-box" }}
-              placeholder={placeholder}
-              value={input}
-              onChange={e => {
-                setInput(e.target.value);
-                e.target.style.height = "auto";
-                e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
-              }}
-              onKeyDown={handleKeyDown}
-              disabled={loading || loadingQ}
-            />
+        <div className="chat-input-bar" style={{ background: BG, padding: "10px 16px 14px", borderTop: "1px solid #e0e0e0" }}>
+          {phase === "idea" && messages.length === 0 && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px", marginBottom: "10px", maxWidth: "760px", margin: "0 auto 10px" }}>
+              {THEMES.map(t => (
+                <button key={t.id} onClick={() => setTheme(t)} title={t.name}
+                  style={{ width: "100%", height: "30px", borderRadius: "8px", background: t.primary, border: theme.id === t.id ? "3px solid #2d3a1a" : "2px solid rgba(255,255,255,0.7)", cursor: "pointer", padding: 0 }} />
+              ))}
+            </div>
+          )}
+          <div style={{ display: "flex", alignItems: "flex-end", gap: "10px", maxWidth: "760px", margin: "0 auto" }}>
+            <div style={{ flex: 1, borderRadius: "12px", boxShadow: SHADOW_IN, background: BG, padding: "10px 14px" }}>
+              <textarea ref={inputRef} rows={1}
+                style={{ width: "100%", border: "none", outline: "none", resize: "none", fontFamily: "'Poppins',system-ui,sans-serif", fontSize: "14px", color: "#2d3a1a", lineHeight: "1.6", background: "transparent", minHeight: "24px", maxHeight: "120px", overflowY: "auto", display: "block", boxSizing: "border-box" }}
+                placeholder={placeholder}
+                value={input}
+                onChange={e => {
+                  setInput(e.target.value);
+                  e.target.style.height = "auto";
+                  e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+                }}
+                onKeyDown={handleKeyDown}
+                disabled={loading || loadingQ}
+              />
+            </div>
+            <button onClick={handleSend} disabled={!canSend}
+              style={{ width: "42px", height: "42px", borderRadius: "12px", border: "none", background: canSend ? G : "#d4dcc4", color: "#fff", fontSize: "18px", cursor: canSend ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              ↑
+            </button>
           </div>
-          <button onClick={handleSend} disabled={!canSend} title="Send (or press Enter)"
-            style={{ width: "42px", height: "42px", borderRadius: "12px", border: "none", background: canSend ? G : "#d4dcc4", color: "#fff", fontSize: "18px", cursor: canSend ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.2s" }}>
-            ↑
-          </button>
         </div>
       )}
 
@@ -419,6 +412,8 @@ export default function InputFlow({
           div:hover > div > .edit-ans-btn { opacity: 1 !important; }
         }
         @media (max-width: 768px) {
+          .chat-input-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #f1f1ee; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important; box-shadow: 0 -4px 12px rgba(0,0,0,0.08); z-index: 100; border-top: 1px solid #e0e0e0 !important;}
+          .main-content { padding-bottom: 90px !important; }
           .edit-ans-btn { opacity: 1 !important; }
           .chat-msg-bubble { max-width: 88% !important; }
           .tone-deck-btns { gap: 6px !important; }
