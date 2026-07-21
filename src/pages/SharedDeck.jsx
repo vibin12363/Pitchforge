@@ -171,7 +171,7 @@ export default function SharedDeck() {
         {/* Footer */}
         <div style={{ textAlign: "center" }}>
           <p style={{ fontSize: "12px", color: "#aaa" }}>
-            Created with <a href="https://pitchforge-self.vercel.app" style={{ color: G, fontWeight: "600", textDecoration: "none" }}>PitchForge AI</a>
+            Created with <a href="https://pitchforge-self.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color: G, fontWeight: "600", textDecoration: "none" }}>PitchForge AI</a>
           </p>
         </div>
       </div>
